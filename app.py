@@ -1,6 +1,5 @@
 from surveys import satisfaction_survey as survey
 from flask import Flask, request, render_template, redirect, flash
-# from random import randint,  choice, sample
 from flask_debugtoolbar import DebugToolbarExtension
 
     #initialize a variable called responses to be an empty list. As people store their answers
