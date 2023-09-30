@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
     #initialize a variable called responses to be an empty list. As people store their answers
 
-responses = []
+RESPONSES = []
 
 app = Flask(__name__)
 
@@ -28,5 +28,12 @@ def start_survey():
 @app.route("/question/<int:qid>")
 def questions(qid):
     """Show each survey question on an individual page"""
-    question = survey.question[qid]
-    return render_template("question.html", question_num=qid, question=question, survey=survey)
+    questions = survey.questions[qid]
+    return render_template("question.html", question_num=qid, question=questions)
+
+@app.route("/answer", methods=["POST"])
+def record_answer():
+    """Store each question's answer in the RESPONSE list"""
+    answer = request.form['answer']
+    RESPONSES.add(answer)
+    return render_template("/question/")
