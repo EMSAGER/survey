@@ -10,7 +10,7 @@
 <body>
     <section class="messages">
         {% for category,msg in get_flashed_messages(with_categories=true)%}
-            <p class="{{category}}"> {{ msg }} </p>
+            <h3 class="{{category}} text-center"> {{ msg }} </h3>
         {% endfor  %}
     </section>
 {% block content %}

@@ -53,7 +53,7 @@ def questions(qid):
         return render_template("/complete.html")
     
     if(len(RESPONSES)) != qid:
-        flash(f"Invalid question id: {qid}.", 'error')
+        flash(f"Question skipping is not allowed. Invalid question id: {qid}.", 'error')
         return redirect(f"/question/{len(RESPONSES)}")
   
     questions = survey.questions[qid]
