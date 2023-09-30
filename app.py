@@ -14,19 +14,19 @@ debug = DebugToolbarExtension(app)
 
 
 
-@app.route('/')
+@app.route("/")
 def index():
     "Set up home page"
     return render_template("home.html", survey=survey)
 
-@app.route('/begin', methods=["POST"])
+@app.route("/begin", methods=["POST"])
 def start_survey():
     """Clear the response list & begin survey """
     responses.clear()
-    return redirect('/question/0')
+    return redirect("/question/0")
 
-@app.route('/question/<int:qid>')
+@app.route("/question/<int:qid>")
 def questions(qid):
     """Show each survey question on an individual page"""
     question = survey.question[qid]
-    return render_template('question.html', question_num=qid, question=question, survey=survey)
+    return render_template("question.html", question_num=qid, question=question, survey=survey)
