@@ -10,20 +10,19 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "potatolife"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+
 debug = DebugToolbarExtension(app)
-
-
 
 @app.route("/")
 def index():
     "Set up home page"
-    return render_template("home.html", survey=survey)
+    return render_template("/home.html", survey=survey)
 
 @app.route("/begin", methods=["POST"])
 def start_survey():
     """Clear the response list & begin survey """
     #RESPONSES.clear()
-    session['RESPONSES_TODOS'] = []
+    session[RESPONSES_TODOS] = []
     
     return redirect("/question/0")
 
@@ -34,9 +33,9 @@ def record_answer():
         #get the response and save it to a variable
     choice = request.form['answer']
 
-    responses = session['RESPONSES_TODOS']
+    responses = session[RESPONSES_TODOS]
     responses.append(choice)
-    session['RESPONSES_TODOS'] = responses
+    session[RESPONSES_TODOS] = responses
         #two options for the survey: either its completed or it needs to load the next question. 
     if (len(responses) == len(survey.questions)):
             #survey is complete
@@ -51,9 +50,9 @@ def record_answer():
 def questions(qid):
     """Show each survey question on an individual page"""
     responses = session.get(RESPONSES_TODOS)
-    
-    if responses is None:
-        return render_template("/")
+
+    if (responses is None):
+        return redirect("/home.html")
 
     if (len(responses) == len(survey.questions)):
             #survey is complete
